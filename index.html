@@ -809,6 +809,37 @@
                 transform: translateY(80px) scale(calc(var(--scale) * 0.8));
             }
         }
+/* ロゴ用・繊細スパークル */
+.logo-icon {
+  position: relative;
+}
+
+/* 白い粒 */
+.logo-sparkle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+  filter: blur(0.3px);
+}
+
+/* 粒が一瞬だけ光る */
+@keyframes sparkleDot {
+  0%   { opacity: 0; transform: scale(0.5); }
+  20%  { opacity: 1; transform: scale(1); }
+  40%  { opacity: 0; transform: scale(0.6); }
+  100% { opacity: 0; }
+}
+
+/* hoverでまとめて発火 */
+.logo-icon:hover .logo-sparkle {
+  animation: sparkleDot 0.8s ease-out;
+}
+
+
 
         /* スマホ対応 */
         @media (max-width: 768px) {
@@ -913,8 +944,17 @@
         <div class="header-content">
             <a href="#" class="logo">
                 <div class="logo-icon">
-                    <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2026/01/SakuraSpeechlogo.png" alt="Logo">
-                </div>
+  <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2026/01/SakuraSpeechlogo.png" alt="Logo">
+
+  <span class="logo-sparkle" style="top:14%; left:46%; animation-delay:0s;"></span>
+  <span class="logo-sparkle" style="top:22%; left:60%; animation-delay:0.12s;"></span>
+  <span class="logo-sparkle" style="top:36%; left:66%; animation-delay:0.24s;"></span>
+  <span class="logo-sparkle" style="top:40%; left:42%; animation-delay:0.36s;"></span>
+  <span class="logo-sparkle" style="top:28%; left:30%; animation-delay:0.48s;"></span>
+</div>
+
+
+
                 <span>SakuraSpeech</span>
             </a>
             
