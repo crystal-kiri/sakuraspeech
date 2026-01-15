@@ -216,7 +216,7 @@
             height: 20px;
         }
 
-        /* 桜の花びらをCSSで作成 - シンプルな花びら型 */
+        /* シンプルな花びら型 */
         .petal-simple {
             position: absolute;
             width: 100%;
@@ -776,7 +776,7 @@
             }
         }
 
-        /* リズム刻むアニメーション（指揮者風） */
+        /* 花びらひらひらアニメーション */
         @keyframes sakuraRhythm {
             0% {
                 opacity: 0;
@@ -809,12 +809,12 @@
                 transform: translateY(80px) scale(calc(var(--scale) * 0.8));
             }
         }
-/* ロゴ用・繊細スパークル */
+/* ロゴ用アニメーション */
 .logo-icon {
   position: relative;
 }
 
-/* 白い粒 */
+/* きらりん */
 .logo-sparkle {
   position: absolute;
   width: 4px;
@@ -826,7 +826,6 @@
   filter: blur(0.3px);
 }
 
-/* 粒が一瞬だけ光る */
 @keyframes sparkleDot {
   0%   { opacity: 0; transform: scale(0.5); }
   20%  { opacity: 1; transform: scale(1); }
@@ -834,7 +833,7 @@
   100% { opacity: 0; }
 }
 
-/* hoverでまとめて発火 */
+/* hoverできらりん */
 .logo-icon:hover .logo-sparkle {
   animation: sparkleDot 0.8s ease-out;
 }
