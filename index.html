@@ -578,7 +578,22 @@
         .voice-selector:hover .tooltip {
             opacity: 1;
         }
-				
+		/* 録音中の赤いドット点滅アニメーション */
+.recording-dot {
+    width: 10px;
+    height: 10px;
+    background-color: white;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 8px;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0.3; }
+    100% { opacity: 1; }
+}		
 			
         /* キャラクターセクション */
         .characters {
@@ -1428,17 +1443,17 @@
             let audioChunks = [];
 
             function switchMode(mode, btn) {
-                if (currentMode === mode) return;
-                currentMode = mode;
+    if (currentMode === mode) return;
+    currentMode = mode;
 
-                document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
+    document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
 
-                const el = document.getElementById('demo-content');
-                el.innerHTML = mode === 'tts' ? ttsUI() : cloneUI();
+    const el = document.getElementById('demo-content');
+    el.innerHTML = mode === 'tts' ? ttsUI() : cloneUI();
 
-                if (mode === 'clone') initRecorder();
-            }
+        initRecorder(); 
+    }
 
             function ttsUI() {
     return `
@@ -1513,47 +1528,102 @@
 }
 
             function cloneUI() {
-                return `
-                    <h3 style="font-size:1.35rem;margin-bottom:1rem;font-weight:700;">あなたの声を録音</h3>
-                    <p style="color:#6B6B6B;margin-bottom:2rem;font-size:0.95rem;">
-                        静かな環境で、自然な声で30〜60秒ほど話してください。
-                    </p>
-
-                    <div style="display:flex;gap:1rem;margin-bottom:2rem;flex-wrap:wrap;">
-                        <button class="btn-primary" onclick="window.startRecording()">● 録音開始</button>
-                        <button class="btn-primary" style="background:#999;" onclick="window.stopRecording()">■ 停止</button>
-                    </div>
-
-                    <audio id="recordedAudio" controls style="width:100%;display:none;margin-bottom:1.5rem;"></audio>
-
-                    <button class="btn-primary btn-generate">この声でモデルを作成</button>
-                `;
-            }
+    return `
+        <h3 style="font-size:1.35rem;margin-bottom:1rem;font-weight:700;">あなたの声を録音</h3>
+        <div style="display:flex;gap:1rem;margin-bottom:2rem;flex-wrap:wrap;">
+            <button class="btn-primary" onclick="window.startRecording(this)">● 録音開始</button>
+            <button class="btn-primary" style="background:#999;" onclick="window.stopRecording()">■ 停止</button>
+        </div>
+        <audio id="recordedAudio" controls style="width:100%;display:none;margin-bottom:1.5rem;"></audio>
+        <button class="btn-primary btn-generate">この声でモデルを作成</button>
+    `;
+}
 
             function initRecorder() {
-                navigator.mediaDevices.getUserMedia({ audio:true }).then(stream=>{
-                    mediaRecorder = new MediaRecorder(stream);
-                    mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
-                    mediaRecorder.onstop = () => {
-                        const blob = new Blob(audioChunks,{type:'audio/webm'});
-                        audioChunks=[];
-                        const audio = document.getElementById('recordedAudio');
-                        if (audio) {
-                            audio.src = URL.createObjectURL(blob);
-                            audio.style.display='block';
-                        }
-                    };
-                }).catch(err => console.error('マイクアクセスエラー:', err));
+                // すでにマイクが繋がっているか確認
+                if (!window.mediaStream) {
+                    navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+                        window.mediaStream = stream; // マイク接続を保存
+                        setupRecorder(stream);
+                    }).catch(err => {
+                        console.error('マイクアクセスエラー:', err);
+                    });
+                } else {
+                    // すでに許可済みなら、今の画面にあるプレイヤーに繋ぎ直す
+                    setupRecorder(window.mediaStream);
+                }
             }
 
-            function startRecording(){ 
-                audioChunks=[]; 
-                if (mediaRecorder) mediaRecorder.start(); 
-            }
-            
-            function stopRecording(){ 
-                if (mediaRecorder) mediaRecorder.stop(); 
-            }
+            function setupRecorder(stream) {
+    let options = {};
+    
+    // スマホ・PCで使える形式を順番に試す
+    if (MediaRecorder.isTypeSupported('audio/webm;codecs=opus')) {
+        options = { mimeType: 'audio/webm;codecs=opus' };
+    } else if (MediaRecorder.isTypeSupported('audio/mp4')) {
+        options = { mimeType: 'audio/mp4' };
+    }
+    // optionsが空でもMediaRecorderはデフォルト形式で動く
+
+    mediaRecorder = new MediaRecorder(stream, options);
+    
+    mediaRecorder.ondataavailable = e => {
+        if (e.data && e.data.size > 0) audioChunks.push(e.data);
+    };
+
+    mediaRecorder.onstop = () => {
+        const blob = new Blob(audioChunks, { type: mediaRecorder.mimeType });
+        const url = URL.createObjectURL(blob);
+        const audio = document.getElementById('recordedAudio');
+        if (audio) {
+            audio.src = url;
+            audio.style.display = 'block';
+            audio.controls = true;
+            audio.load();
+        }
+    };
+}
+
+            async function startRecording(btnElement) {
+    audioChunks = [];
+    
+    // マイクの初期化
+    if (!window.mediaStream) {
+        try {
+            // ユーザー操作の直後（ここ）でマイクを起動するのがスマホの鉄則
+            window.mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            setupRecorder(window.mediaStream);
+        } catch (err) {
+            alert("マイクが許可されていないか、非対応のブラウザです。");
+            return;
+        }
+    } else {
+        setupRecorder(window.mediaStream);
+    }
+
+    if (mediaRecorder && mediaRecorder.state === "inactive") {
+        mediaRecorder.start();
+        
+        // 見た目の変更（btnElementを直接操作）
+        if (btnElement) {
+            btnElement.innerHTML = '<span class="recording-dot"></span> 録音中...';
+            btnElement.style.background = '#ff4b5c';
+        }
+    }
+}
+
+function stopRecording() {
+    if (mediaRecorder && mediaRecorder.state === "recording") {
+        mediaRecorder.stop();
+
+        // 【追加】ボタンの見た目を元に戻す
+        // 全ての録音開始ボタンを元の表記に戻す
+        document.querySelectorAll('button[onclick*="startRecording"]').forEach(btn => {
+            btn.innerHTML = '● 録音開始';
+            btn.style.background = ''; // 元のCSSの色に戻す
+        });
+    }
+}
 
             // グローバルに公開
             window.switchMode = switchMode;
