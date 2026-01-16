@@ -179,18 +179,18 @@
         }
         
         .btn-primary:active {
-            transform: translateY(0);
-            box-shadow: 0 2px 8px rgba(255, 107, 157, 0.2);
-        }
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(255, 107, 157, 0.2);
+}
 
-        /* ヒーローセクション */
-        .hero {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 3rem 1.5rem 2rem;
-            text-align: center;
-            position: relative;
-        }
+/* ヒーローセクション */
+.hero {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 10rem 1.5rem 2rem;
+    text-align: center;
+    position: relative;	
+}
 
         /* 桜アニメーション用コンテナ */
         .sakura-container {
@@ -319,6 +319,10 @@
             box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
         }
 
+		.textarea-container {
+    width: 100%;
+}
+
         textarea {
             width: 100%;
             min-height: 150px;
@@ -425,18 +429,7 @@
         .btn-generate:active {
             transform: translateY(0);
             box-shadow: 0 4px 16px rgba(255, 107, 157, 0.25);
-        }
-* {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: #f5f5f5;
-            padding: 3rem;
-        }     
+        }	
 
         .textarea-container {
             position: relative;
@@ -585,7 +578,8 @@
         .voice-selector:hover .tooltip {
             opacity: 1;
         }
-        
+				
+			
         /* キャラクターセクション */
         .characters {
             background: var(--sakura-grey);
@@ -995,9 +989,7 @@
 /* hoverできらりん */
 .logo-icon:hover .logo-sparkle {
   animation: sparkleDot 0.8s ease-out;
-}
-
-
+}	
 
         /* スマホ対応 */
         @media (max-width: 768px) {
@@ -1112,7 +1104,6 @@
 </div>
 
 
-
                 <span>SakuraSpeech</span>
             </a>
             
@@ -1133,6 +1124,7 @@
     </header>
 
     <main>
+		<div style="height: 80px; width: 100%;"></div>
         <section class="hero">
             <div class="sakura-container" id="heroSakuraContainer"></div>
             <h1>日本語品質<span class="highlight">No.1</span>のAI音声、登場</h1>
@@ -1150,7 +1142,7 @@
                 </button>
             </div>
             <div class="demo-card" id="demo-content">
-                <div class="textarea-container">
+    <div class="textarea-container">
         <div class="voice-selector-container">
             <div class="voice-selector active" data-voice="さくら" onclick="selectVoice(this)">
                 <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2025/12/josei2.png" alt="さくら">
@@ -1188,7 +1180,11 @@
                 </div>
             </div>
         </div>
-                <textarea placeholder="ここにテキストを入力してください...">こんにちは！SakuraSpeechへようこそ。高品質な音声合成をお楽しみください。</textarea>
+
+        <textarea placeholder="ここにテキストを入力してください...">
+こんにちは！SakuraSpeechへようこそ。高品質な音声合成をお楽しみください。
+        </textarea>
+    </div>
 
                 <div class="settings-grid">
                     <div class="setting-item">
@@ -1445,36 +1441,76 @@
             }
 
             function ttsUI() {
-                return `
-                    <textarea placeholder="ここにテキストを入力してください...">こんにちは！SakuraSpeechへようこそ。高品質な音声合成をお楽しみください。</textarea>
+    return `
+        <div class="textarea-container">
+            <div class="voice-selector-container">
+                <div class="voice-selector active" data-voice="さくら" onclick="selectVoice(this)">
+                    <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2025/12/josei2.png" alt="さくら">
+                    <div class="tooltip">さくら</div>
+                </div>
 
-                    <div class="settings-grid">
-                        <div class="setting-item">
-                            <div class="setting-label"><span>速度</span><span class="setting-value">1.0x</span></div>
-                            <input type="range" min="0.5" max="2" step="0.1" value="1">
-                        </div>
-                        <div class="setting-item">
-                            <div class="setting-label"><span>音量</span><span class="setting-value">100%</span></div>
-                            <input type="range" min="0" max="100" value="100">
-                        </div>
-                        <div class="setting-item">
-                            <div class="setting-label"><span>ピッチ</span><span class="setting-value">1.0x</span></div>
-                            <input type="range" min="0.5" max="2" step="0.1" value="1">
-                        </div>
-                        <div class="setting-item">
-                            <div class="setting-label"><span>感情</span></div>
-                            <select>
-                                <option>ニュートラル</option>
-                                <option>嬉しい</option>
-                                <option>悲しい</option>
-                                <option>怒り</option>
-                            </select>
-                        </div>
+                <div class="voice-selector-dropdown">
+                    <div class="voice-selector" data-voice="あおい" onclick="selectVoice(this)">
+                        <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2025/12/josei3.png" alt="あおい">
+                        <div class="tooltip">あおい</div>
                     </div>
+                    <div class="voice-selector" data-voice="はると" onclick="selectVoice(this)">
+                        <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2025/12/dansei4.png" alt="はると">
+                        <div class="tooltip">はると</div>
+                    </div>
+                    <div class="voice-selector" data-voice="ゆい" onclick="selectVoice(this)">
+                        <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2025/12/josei.png" alt="ゆい">
+                        <div class="tooltip">ゆい</div>
+                    </div>
+                    <div class="voice-selector" data-voice="けんた" onclick="selectVoice(this)">
+                        <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2025/12/dansei3.png" alt="けんた">
+                        <div class="tooltip">けんた</div>
+                    </div>
+                    <div class="voice-selector" data-voice="みゆき" onclick="selectVoice(this)">
+                        <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2025/12/josei1.png" alt="みゆき">
+                        <div class="tooltip">みゆき</div>
+                    </div>
+                    <div class="voice-selector" data-voice="けんじ" onclick="selectVoice(this)">
+                        <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2025/12/dansei.png" alt="けんじ">
+                        <div class="tooltip">けんじ</div>
+                    </div>
+                    <div class="voice-selector" data-voice="りな" onclick="selectVoice(this)">
+                        <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2025/12/josei6.png" alt="りな">
+                        <div class="tooltip">りな</div>
+                    </div>
+                </div>
+            </div>
 
-                    <button class="btn-primary btn-generate">音声を生成</button>
-                `;
-            }
+            <textarea placeholder="ここにテキストを入力してください...">こんにちは！SakuraSpeechへようこそ。高品質な音声合成をお楽しみください。</textarea>
+        </div>
+
+        <div class="settings-grid">
+            <div class="setting-item">
+                <div class="setting-label"><span>速度</span><span class="setting-value">1.0x</span></div>
+                <input type="range" min="0.5" max="2" step="0.1" value="1">
+            </div>
+            <div class="setting-item">
+                <div class="setting-label"><span>音量</span><span class="setting-value">100%</span></div>
+                <input type="range" min="0" max="100" value="100">
+            </div>
+            <div class="setting-item">
+                <div class="setting-label"><span>ピッチ</span><span class="setting-value">1.0x</span></div>
+                <input type="range" min="0.5" max="2" step="0.1" value="1">
+            </div>
+            <div class="setting-item">
+                <div class="setting-label"><span>感情</span></div>
+                <select>
+                    <option>ニュートラル</option>
+                    <option>嬉しい</option>
+                    <option>悲しい</option>
+                    <option>怒り</option>
+                </select>
+            </div>
+        </div>
+
+        <button class="btn-primary btn-generate">音声を生成</button>
+    `;
+}
 
             function cloneUI() {
                 return `
@@ -1612,6 +1648,29 @@
                 scheduleSakuraDemo();
             }, 100); // 100ms遅延
         });
-    </script>
+		
+let selectedVoice = 'さくら';
+
+function selectVoice(el) {
+    // active 切り替え
+    document.querySelectorAll('.voice-selector').forEach(v => {
+        v.classList.remove('active');
+    });
+    el.classList.add('active');
+
+    // 選択中の音声名を保存
+    selectedVoice = el.dataset.voice;
+
+    // ドロップダウンを閉じる（CSSアニメーション前提）
+    const dropdown = el.closest('.voice-selector-container');
+    dropdown.classList.remove('open');
+}
+
+// メインアイコンをクリックしたら開閉
+document.querySelector('.voice-selector.active')?.addEventListener('click', function () {
+    this.closest('.voice-selector-container').classList.toggle('open');
+});
+</script>
+
 </body>
 </html>
