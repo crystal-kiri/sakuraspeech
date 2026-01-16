@@ -456,128 +456,123 @@
         }
 
         /* キャラクター選択 - テキスト欄の中 */
-        .voice-selector-container {
-            position: absolute;
-            left: 12px;
-            top: 12px;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            z-index: 10;
-        }
+.voice-selector-container {
+    position: absolute;
+    left: 12px;
+    top: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    z-index: 10;
+}
+.voice-selector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border: 2px solid #E8E8E8;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: white;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+.voice-selector:hover {
+    border-color: #FFB7C5;
+    box-shadow: 0 2px 8px rgba(255, 107, 157, 0.2);
+    transform: scale(1.05);
+}
+.voice-selector.active {
+    border-color: #FF6B9D;
+    box-shadow: 0 2px 12px rgba(255, 107, 157, 0.3);
+    border-width: 3px;
+    transform: none !important; 
+}
+.voice-selector.active:hover {
+    transform: scale(1.05) !important;
+}
 
-        .voice-selector {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 48px;
-            height: 48px;
-            border: 2px solid #E8E8E8;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background: white;
-            overflow: hidden;
-            flex-shrink: 0;
-        }
-
-        .voice-selector:hover {
-            border-color: #FFB7C5;
-            box-shadow: 0 2px 8px rgba(255, 107, 157, 0.2);
-            transform: scale(1.05);
-        }
-
-        .voice-selector.active {
-            border-color: #FF6B9D;
-            box-shadow: 0 2px 12px rgba(255, 107, 157, 0.3);
-            border-width: 3px;
-        }
-
-        .voice-selector img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .voice-selector-dropdown {
-            display: flex;
-            gap: 0.5rem;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-
-        .voice-selector-dropdown .voice-selector {
-            transform: scale(0);
-            opacity: 0;
-        }
-
-        .voice-selector-container:hover .voice-selector-dropdown {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .voice-selector-container:hover .voice-selector-dropdown .voice-selector:nth-child(1) {
-            animation: popIn 0.3s ease-out 0.05s forwards;
-        }
-
-        .voice-selector-container:hover .voice-selector-dropdown .voice-selector:nth-child(2) {
-            animation: popIn 0.3s ease-out 0.1s forwards;
-        }
-
-        .voice-selector-container:hover .voice-selector-dropdown .voice-selector:nth-child(3) {
-            animation: popIn 0.3s ease-out 0.15s forwards;
-        }
-
-        .voice-selector-container:hover .voice-selector-dropdown .voice-selector:nth-child(4) {
-            animation: popIn 0.3s ease-out 0.2s forwards;
-        }
-
-        .voice-selector-container:hover .voice-selector-dropdown .voice-selector:nth-child(5) {
-            animation: popIn 0.3s ease-out 0.25s forwards;
-        }
-
-        .voice-selector-container:hover .voice-selector-dropdown .voice-selector:nth-child(6) {
-            animation: popIn 0.3s ease-out 0.3s forwards;
-        }
-
-        .voice-selector-container:hover .voice-selector-dropdown .voice-selector:nth-child(7) {
-            animation: popIn 0.3s ease-out 0.35s forwards;
-        }
-
-        @keyframes popIn {
-            0% {
-                transform: scale(0);
-                opacity: 0;
-            }
-            50% {
-                transform: scale(1.1);
-            }
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        .tooltip {
-            position: absolute;
-            bottom: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            white-space: nowrap;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.2s;
-        }
-
-        .voice-selector:hover .tooltip {
-            opacity: 1;
-        }
+.voice-selector img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.voice-selector-dropdown {
+    display: flex;
+    gap: 0.5rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+.voice-selector-dropdown .voice-selector {
+    transform: scale(0);
+    opacity: 0;
+    transform-origin: center; /* ← ここ修正！align-contentを削除 */
+}
+.voice-selector-container:not(:hover) .voice-selector-dropdown .voice-selector {
+    animation: none;
+    transform: scale(0);
+    opacity: 0;
+}
+.voice-selector-container:hover .voice-selector-dropdown {
+    opacity: 1;
+    pointer-events: auto;
+}
+.voice-selector-container:hover .voice-selector-dropdown .voice-selector:nth-child(1) {
+    animation: popIn 0.3s ease-out 0.05s forwards;
+}
+.voice-selector-container:hover .voice-selector-dropdown .voice-selector:nth-child(2) {
+    animation: popIn 0.3s ease-out 0.1s forwards;
+}
+.voice-selector-container:hover .voice-selector-dropdown .voice-selector:nth-child(3) {
+    animation: popIn 0.3s ease-out 0.15s forwards;
+}
+.voice-selector-container:hover .voice-selector-dropdown .voice-selector:nth-child(4) {
+    animation: popIn 0.3s ease-out 0.2s forwards;
+}
+.voice-selector-container:hover .voice-selector-dropdown .voice-selector:nth-child(5) {
+    animation: popIn 0.3s ease-out 0.25s forwards;
+}
+.voice-selector-container:hover .voice-selector-dropdown .voice-selector:nth-child(6) {
+    animation: popIn 0.3s ease-out 0.3s forwards;
+}
+.voice-selector-container:hover .voice-selector-dropdown .voice-selector:nth-child(7) {
+    animation: popIn 0.3s ease-out 0.35s forwards;
+}
+@keyframes popIn {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+.tooltip {
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+}
+.voice-selector:hover .tooltip {
+    opacity: 1;
+}
+		
 		/* 録音中の赤いドット点滅アニメーション */
 .recording-dot {
     width: 10px;
@@ -1158,40 +1153,40 @@
             </div>
             <div class="demo-card" id="demo-content">
     <div class="textarea-container">
-        <div class="voice-selector-container">
-            <div class="voice-selector active" data-voice="さくら" onclick="selectVoice(this)">
-                <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2025/12/josei2.png" alt="さくら">
-                <div class="tooltip">さくら</div>
+          <div class="voice-selector-container">
+            <div class="voice-selector active" data-voice="花音咲良" onclick="selectVoice(this)">
+                <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2026/01/花音咲良.png" alt="花音咲良">
+                <div class="tooltip">花音咲良</div>
             </div>
 
             <div class="voice-selector-dropdown">
-                <div class="voice-selector" data-voice="あおい" onclick="selectVoice(this)">
-                    <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2025/12/josei3.png" alt="あおい">
-                    <div class="tooltip">あおい</div>
+                <div class="voice-selector" data-voice="青空春斗" onclick="selectVoice(this)">
+                    <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2026/01/青空春斗.png" alt="青空春斗">
+                    <div class="tooltip">青空春斗</div>
                 </div>
-                <div class="voice-selector" data-voice="はると" onclick="selectVoice(this)">
-                    <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2025/12/dansei4.png" alt="はると">
-                    <div class="tooltip">はると</div>
+                <div class="voice-selector" data-voice="響トオル" onclick="selectVoice(this)">
+                    <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2026/01/響トオル.png" alt="響トオル">
+                    <div class="tooltip">響トオル</div>
                 </div>
-                <div class="voice-selector" data-voice="ゆい" onclick="selectVoice(this)">
-                    <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2025/12/josei.png" alt="ゆい">
-                    <div class="tooltip">ゆい</div>
+                <div class="voice-selector" data-voice="モンスターくん" onclick="selectVoice(this)">
+                    <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2026/01/monsterkun.png" alt="モンスターくんい">
+                    <div class="tooltip">モンスターくん</div>
                 </div>
-                <div class="voice-selector" data-voice="けんた" onclick="selectVoice(this)">
-                    <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2025/12/dansei3.png" alt="けんた">
-                    <div class="tooltip">けんた</div>
+                <div class="voice-selector" data-voice="小川文" onclick="selectVoice(this)">
+                    <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2026/01/小川文.png" alt="小川文">
+                    <div class="tooltip">小川文</div>
                 </div>
-                <div class="voice-selector" data-voice="みゆき" onclick="selectVoice(this)">
-                    <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2025/12/josei1.png" alt="みゆき">
-                    <div class="tooltip">みゆき</div>
+<div class="voice-selector" data-voice="ちゃんさく" onclick="selectVoice(this)">
+ <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2026/01/さくらこ.png" alt="ちゃんさく">
+<div class="tooltip">ちゃんさく</div>
                 </div>
-                <div class="voice-selector" data-voice="けんじ" onclick="selectVoice(this)">
-                    <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2025/12/dansei.png" alt="けんじ">
-                    <div class="tooltip">けんじ</div>
+                <div class="voice-selector" data-voice="menma" onclick="selectVoice(this)">
+                    <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2026/01/menma.png" alt="menma">
+                    <div class="tooltip">menma</div>
                 </div>
-                <div class="voice-selector" data-voice="りな" onclick="selectVoice(this)">
-                    <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2025/12/josei6.png" alt="りな">
-                    <div class="tooltip">りな</div>
+ <div class="voice-selector" data-voice="モモ" onclick="selectVoice(this)">
+<img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2026/01/momo.png" alt="モモ">
+<div class="tooltip">モモ</div>
                 </div>
             </div>
         </div>
@@ -1248,99 +1243,88 @@
                 <h2 class="section-title">豊富なキャラクター</h2>
                 <p class="section-subtitle">あなたのプロジェクトにぴったりの声を見つけよう</p>
                 <div class="characters-grid">
+                  
+<div class="character-card"><div class="character-image">
+					   <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2026/01/花音咲良.png"alt="花音咲良"></div>
+					   <h3 class="character-name">花音咲良</h3><p class="character-description">こんにちは。花音咲良です。今日の予定はなんですか？</p>
+					 <div class="character-tags"><span class="character-tag">女性</span><span class="character-tag">ハキハキ</span></div></div>
+
                     <div class="character-card">
                         <div class="character-image">
-                            <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2025/12/josei2.png" alt="さくら">
+                            <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2026/01/青空春斗.png" alt="青空春斗">
                         </div>
-                        <h3 class="character-name">さくら</h3>
-                        <p class="character-description">明るく元気な声</p>
+                        <h3 class="character-name">青空春斗</h3>
+ <p class="character-description">空は広い。人混みもノイズも、だいたい雲行き次第。</p>
                         <div class="character-tags">
-                            <span class="character-tag">女性</span>
-                            <span class="character-tag">若い</span>
+ <span class="character-tag">男性</span>
+<span class="character-tag">さわやか</span>
                         </div>
                     </div>
 
                     <div class="character-card">
                         <div class="character-image">
-                            <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2025/12/josei3.png" alt="あおい">
+                            <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2026/01/響トオル.png" alt="響トオル">
                         </div>
-                        <h3 class="character-name">あおい</h3>
-                        <p class="character-description">落ち着いた優雅な声</p>
-                        <div class="character-tags">
-                            <span class="character-tag">女性</span>
-                            <span class="character-tag">大人</span>
-                        </div>
-                    </div>
-
-                    <div class="character-card">
-                        <div class="character-image">
-                            <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2025/12/dansei4.png" alt="はると">
-                        </div>
-                        <h3 class="character-name">はると</h3>
-                        <p class="character-description">力強く爽やかな声</p>
+                        <h3 class="character-name">響トオル</h3>
+<p class="character-description">どうも、よく聞こえますか？<br>声は自信あるんですよ私。</p>
                         <div class="character-tags">
                             <span class="character-tag">男性</span>
-                            <span class="character-tag">青年</span>
+<span class="character-tag">のんびり</span>
                         </div>
                     </div>
 
                     <div class="character-card">
                         <div class="character-image">
-                            <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2025/12/josei.png" alt="ゆい">
+                            <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2026/01/monsterkun.png" alt="モンスターくん">
                         </div>
-                        <h3 class="character-name">ゆい</h3>
-                        <p class="character-description">可愛らしい少女の声</p>
+                        <h3 class="character-name">モンスターくん</h3>
+						<p class="character-description">わわわわーへへへっへ・・・。<br>ｱｯ...チラ。ペコ。</p>
+                        <div class="character-tags">
+							<span class="character-tag">モンスター</span>
+                            <span class="character-tag">wawawa</span>
+                        </div>
+                    </div>
+
+                    <div class="character-card">
+                        <div class="character-image">
+                            <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2026/01/小川文.png" alt="小川文">
+                        </div>
+                        <h3 class="character-name">小川文</h3>
+ <p class="character-description">上手に話すより、届くほうが大事ね、声は。</p>
+                        <div class="character-tags">
+ <span class="character-tag">女性</span>
+<span class="character-tag">まったり</span>
+                        </div>
+                    </div>
+
+                   <div class="character-card">
+					   <div class="character-image">
+						   <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2026/01/さくらこ.png"alt="さくらこ">
+					   </div>
+					   <h3 class="character-name">ちゃんさく</h3>
+					   <p class="character-description">こにゃにゃちわー！大丈夫だよ、絶対、うまくいくから。</p><div class="character-tags">
+					   <span class="character-tag">女性</span><span class="character-tag">キラキラ</span></div>
+					</div>					
+                    
+					<div class="character-card">
+                        <div class="character-image">
+							<img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2026/01/menma.png" alt="menma">
+                        </div>
+						<h3 class="character-name">menma</h3>
+						<p class="character-description">世界線は一個じゃない。案外なんとかなるんだってばよな。</p>
+						<div class="character-tags"><span class="character-tag">男性</span><span class="character-tag">ガミガミ</span>
+						</div>
+                    </div>
+
+                    <div class="character-card">
+                        <div class="character-image">
+ <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2026/01/momo.png" alt="モモ">
+                        </div>
+<h3 class="character-name">モモ</h3>
+						<p class="character-description">やったーモモだよー。一緒にもふもふしようねっ。</p>
                         <div class="character-tags">
                             <span class="character-tag">女性</span>
-                            <span class="character-tag">少女</span>
-                        </div>
-                    </div>
-
-                    <div class="character-card">
-                        <div class="character-image">
-                            <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2025/12/dansei3.png" alt="けんた">
-                        </div>
-                        <h3 class="character-name">けんた</h3>
-                        <p class="character-description">渋い大人の声</p>
-                        <div class="character-tags">
-                            <span class="character-tag">男性</span>
-                            <span class="character-tag">中年</span>
-                        </div>
-                    </div>
-
-                    <div class="character-card">
-                        <div class="character-image">
-                            <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2025/12/josei1.png" alt="みゆき">
-                        </div>
-                        <h3 class="character-name">みゆき</h3>
-                        <p class="character-description">知的で上品な声</p>
-                        <div class="character-tags">
-                            <span class="character-tag">女性</span>
-                            <span class="character-tag">大人</span>
-                        </div>
-                    </div>
-
-                    <div class="character-card">
-                        <div class="character-image">
-                            <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2025/12/dansei.png" alt="けんじ">
-                        </div>
-                        <h3 class="character-name">けんじ</h3>
-                        <p class="character-description">若々しい元気な声</p>
-                        <div class="character-tags">
-                            <span class="character-tag">男性</span>
-                            <span class="character-tag">若い</span>
-                        </div>
-                    </div>
-
-                    <div class="character-card">
-                        <div class="character-image">
-                            <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2025/12/josei6.png" alt="りな">
-                        </div>
-                        <h3 class="character-name">りな</h3>
-                        <p class="character-description">優しく穏やかな声</p>
-                        <div class="character-tags">
-                            <span class="character-tag">女性</span>
-                            <span class="character-tag">大人</span>
+ <span class="character-tag">るんるん</span>
                         </div>
                     </div>
                 </div>
@@ -1406,97 +1390,97 @@
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            function toggleMenu(btn) {
-                btn.classList.toggle('active');
-                document.getElementById('mainNav').classList.toggle('active');
-            }
-
-            function goTtsDemo() {
-                document.getElementById('demo').scrollIntoView({ behavior: 'smooth' });
-                const ttsBtn = document.querySelector('.mode-btn[data-mode="tts"]');
-                switchMode('tts', ttsBtn);
-                closeMenu();
-            }
-
-            function goCloneDemo() {
-                document.getElementById('demo').scrollIntoView({ behavior: 'smooth' });
-                const cloneBtn = document.querySelector('.mode-btn[data-mode="clone"]');
-                switchMode('clone', cloneBtn);
-                closeMenu();
-            }
-
-            function closeMenu() {
-                const toggle = document.querySelector('.menu-toggle');
-                const nav = document.getElementById('mainNav');
-                if (toggle) toggle.classList.remove('active');
-                if (nav) nav.classList.remove('active');
-            }
-
-            // グローバルに公開
-            window.toggleMenu = toggleMenu;
-            window.goTtsDemo = goTtsDemo;
-            window.goCloneDemo = goCloneDemo;
-
-            let currentMode = 'tts';
-            let mediaRecorder;
-            let audioChunks = [];
-
-            function switchMode(mode, btn) {
-    if (currentMode === mode) return;
-    currentMode = mode;
-
-    document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-
-    const el = document.getElementById('demo-content');
-    el.innerHTML = mode === 'tts' ? ttsUI() : cloneUI();
-
-        initRecorder(); 
+document.addEventListener('DOMContentLoaded', function() {
+    function toggleMenu(btn) {
+        btn.classList.toggle('active');
+        document.getElementById('mainNav').classList.toggle('active');
     }
 
-            function ttsUI() {
-    return `
+    function goTtsDemo() {
+        document.getElementById('demo').scrollIntoView({ behavior: 'smooth' });
+        const ttsBtn = document.querySelector('.mode-btn[data-mode="tts"]');
+        switchMode('tts', ttsBtn);
+        closeMenu();
+    }
+
+    function goCloneDemo() {
+        document.getElementById('demo').scrollIntoView({ behavior: 'smooth' });
+        const cloneBtn = document.querySelector('.mode-btn[data-mode="clone"]');
+        switchMode('clone', cloneBtn);
+        closeMenu();
+    }
+
+    function closeMenu() {
+        const toggle = document.querySelector('.menu-toggle');
+        const nav = document.getElementById('mainNav');
+        if (toggle) toggle.classList.remove('active');
+        if (nav) nav.classList.remove('active');
+    }
+
+    // グローバルに公開
+    window.toggleMenu = toggleMenu;
+    window.goTtsDemo = goTtsDemo;
+    window.goCloneDemo = goCloneDemo;
+
+    let currentMode = 'tts';
+    let mediaRecorder;
+    let audioChunks = [];
+
+    function switchMode(mode, btn) {
+        if (currentMode === mode) return;
+        currentMode = mode;
+
+        document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const el = document.getElementById('demo-content');
+        el.innerHTML = mode === 'tts' ? ttsUI() : cloneUI();
+
+        initRecorder();
+    }
+
+    function ttsUI() {
+        return `
         <div class="textarea-container">
             <div class="voice-selector-container">
-                <div class="voice-selector active" data-voice="さくら" onclick="selectVoice(this)">
-                    <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2025/12/josei2.png" alt="さくら">
-                    <div class="tooltip">さくら</div>
+                <div class="voice-selector active" data-voice="花音咲良" onclick="selectVoice(this)">
+                    <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2026/01/花音咲良.png" alt="花音咲良">
+                    <div class="tooltip">花音咲良</div>
                 </div>
 
                 <div class="voice-selector-dropdown">
-                    <div class="voice-selector" data-voice="あおい" onclick="selectVoice(this)">
-                        <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2025/12/josei3.png" alt="あおい">
-                        <div class="tooltip">あおい</div>
+                    <div class="voice-selector" data-voice="青空春斗" onclick="selectVoice(this)">
+                        <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2026/01/青空春斗.png" alt="青空春斗">
+                        <div class="tooltip">青空春斗</div>
                     </div>
-                    <div class="voice-selector" data-voice="はると" onclick="selectVoice(this)">
-                        <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2025/12/dansei4.png" alt="はると">
-                        <div class="tooltip">はると</div>
+                    <div class="voice-selector" data-voice="響トオル" onclick="selectVoice(this)">
+                        <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2026/01/響トオル.png" alt="響トオル">
+                        <div class="tooltip">響トオル</div>
                     </div>
-                    <div class="voice-selector" data-voice="ゆい" onclick="selectVoice(this)">
-                        <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2025/12/josei.png" alt="ゆい">
-                        <div class="tooltip">ゆい</div>
+                    <div class="voice-selector" data-voice="モンスターくん" onclick="selectVoice(this)">
+                        <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2026/01/monsterkun.png" alt="モンスターくん">
+                        <div class="tooltip">モンスターくん</div>
                     </div>
-                    <div class="voice-selector" data-voice="けんた" onclick="selectVoice(this)">
-                        <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2025/12/dansei3.png" alt="けんた">
-                        <div class="tooltip">けんた</div>
+                    <div class="voice-selector" data-voice="小川文" onclick="selectVoice(this)">
+                        <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2026/01/小川文.png" alt="小川文">
+                        <div class="tooltip">小川文</div>
                     </div>
-                    <div class="voice-selector" data-voice="みゆき" onclick="selectVoice(this)">
-                        <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2025/12/josei1.png" alt="みゆき">
-                        <div class="tooltip">みゆき</div>
+                    <div class="voice-selector" data-voice="ちゃんさく" onclick="selectVoice(this)">
+                        <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2026/01/さくらこ.png" alt="ちゃんさく">
+                        <div class="tooltip">ちゃんさく</div>
                     </div>
-                    <div class="voice-selector" data-voice="けんじ" onclick="selectVoice(this)">
-                        <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2025/12/dansei.png" alt="けんじ">
-                        <div class="tooltip">けんじ</div>
+                    <div class="voice-selector" data-voice="menma" onclick="selectVoice(this)">
+                        <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2026/01/menma.png" alt="menma">
+                        <div class="tooltip">menma</div>
                     </div>
-                    <div class="voice-selector" data-voice="りな" onclick="selectVoice(this)">
-                        <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2025/12/josei6.png" alt="りな">
-                        <div class="tooltip">りな</div>
+                    <div class="voice-selector" data-voice="モモ" onclick="selectVoice(this)">
+                        <img src="https://crystal-method.com/wp2020/wp/wp-content/uploads/2026/01/momo.png" alt="モモ">
+                        <div class="tooltip">モモ</div>
                     </div>
                 </div>
             </div>
 
-            <textarea placeholder="ここにテキストを入力してください...">こんにちは！SakuraSpeechへようこそ。高品質な音声合成をお楽しみください。</textarea>
+            <textarea placeholder="ここにテキストを入力してください...">こんにちは!SakuraSpeechへようこそ。高品質な音声合成をお楽しみください。</textarea>
         </div>
 
         <div class="settings-grid">
@@ -1525,10 +1509,10 @@
 
         <button class="btn-primary btn-generate">音声を生成</button>
     `;
-}
+    }
 
-            function cloneUI() {
-    return `
+    function cloneUI() {
+        return `
         <h3 style="font-size:1.35rem;margin-bottom:1rem;font-weight:700;">あなたの声を録音</h3>
         <div style="display:flex;gap:1rem;margin-bottom:2rem;flex-wrap:wrap;">
             <button class="btn-primary" onclick="window.startRecording(this)">● 録音開始</button>
@@ -1537,209 +1521,187 @@
         <audio id="recordedAudio" controls style="width:100%;display:none;margin-bottom:1.5rem;"></audio>
         <button class="btn-primary btn-generate">この声でモデルを作成</button>
     `;
-}
-
-            function initRecorder() {
-                // すでにマイクが繋がっているか確認
-                if (!window.mediaStream) {
-                    navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
-                        window.mediaStream = stream; // マイク接続を保存
-                        setupRecorder(stream);
-                    }).catch(err => {
-                        console.error('マイクアクセスエラー:', err);
-                    });
-                } else {
-                    // すでに許可済みなら、今の画面にあるプレイヤーに繋ぎ直す
-                    setupRecorder(window.mediaStream);
-                }
-            }
-
-            function setupRecorder(stream) {
-    let options = {};
-    
-    // スマホ・PCで使える形式を順番に試す
-    if (MediaRecorder.isTypeSupported('audio/webm;codecs=opus')) {
-        options = { mimeType: 'audio/webm;codecs=opus' };
-    } else if (MediaRecorder.isTypeSupported('audio/mp4')) {
-        options = { mimeType: 'audio/mp4' };
     }
-    // optionsが空でもMediaRecorderはデフォルト形式で動く
 
-    mediaRecorder = new MediaRecorder(stream, options);
-    
-    mediaRecorder.ondataavailable = e => {
-        if (e.data && e.data.size > 0) audioChunks.push(e.data);
-    };
-
-    mediaRecorder.onstop = () => {
-        const blob = new Blob(audioChunks, { type: mediaRecorder.mimeType });
-        const url = URL.createObjectURL(blob);
-        const audio = document.getElementById('recordedAudio');
-        if (audio) {
-            audio.src = url;
-            audio.style.display = 'block';
-            audio.controls = true;
-            audio.load();
-        }
-    };
-}
-
-            async function startRecording(btnElement) {
-    audioChunks = [];
-    
-    // マイクの初期化
-    if (!window.mediaStream) {
-        try {
-            // ユーザー操作の直後（ここ）でマイクを起動するのがスマホの鉄則
-            window.mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    function initRecorder() {
+        if (!window.mediaStream) {
+            navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+                window.mediaStream = stream;
+                setupRecorder(stream);
+            }).catch(err => {
+                console.error('マイクアクセスエラー:', err);
+            });
+        } else {
             setupRecorder(window.mediaStream);
-        } catch (err) {
-            alert("マイクが許可されていないか、非対応のブラウザです。");
+        }
+    }
+
+    function setupRecorder(stream) {
+        let options = {};
+        
+        if (MediaRecorder.isTypeSupported('audio/webm;codecs=opus')) {
+            options = { mimeType: 'audio/webm;codecs=opus' };
+        } else if (MediaRecorder.isTypeSupported('audio/mp4')) {
+            options = { mimeType: 'audio/mp4' };
+        }
+
+        mediaRecorder = new MediaRecorder(stream, options);
+        
+        mediaRecorder.ondataavailable = e => {
+            if (e.data && e.data.size > 0) audioChunks.push(e.data);
+        };
+
+        mediaRecorder.onstop = () => {
+            const blob = new Blob(audioChunks, { type: mediaRecorder.mimeType });
+            const url = URL.createObjectURL(blob);
+            const audio = document.getElementById('recordedAudio');
+            if (audio) {
+                audio.src = url;
+                audio.style.display = 'block';
+                audio.controls = true;
+                audio.load();
+            }
+        };
+    }
+
+    async function startRecording(btnElement) {
+        audioChunks = [];
+        
+        if (!window.mediaStream) {
+            try {
+                window.mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                setupRecorder(window.mediaStream);
+            } catch (err) {
+                alert("マイクが許可されていないか、非対応のブラウザです。");
+                return;
+            }
+        } else {
+            setupRecorder(window.mediaStream);
+        }
+
+        if (mediaRecorder && mediaRecorder.state === "inactive") {
+            mediaRecorder.start();
+            
+            if (btnElement) {
+                btnElement.innerHTML = '<span class="recording-dot"></span> 録音中...';
+                btnElement.style.background = '#ff4b5c';
+            }
+        }
+    }
+
+    function stopRecording() {
+        if (mediaRecorder && mediaRecorder.state === "recording") {
+            mediaRecorder.stop();
+
+            document.querySelectorAll('button[onclick*="startRecording"]').forEach(btn => {
+                btn.innerHTML = '● 録音開始';
+                btn.style.background = '';
+            });
+        }
+    }
+
+    function selectVoice(el) {
+        document.querySelectorAll('.voice-selector').forEach(v => {
+            v.classList.remove('active');
+        });
+        el.classList.add('active');
+        selectedVoice = el.dataset.voice;
+    }
+
+    // グローバルに公開
+    window.switchMode = switchMode;
+    window.startRecording = startRecording;
+    window.stopRecording = stopRecording;
+    window.selectVoice = selectVoice;
+
+    // ナビゲーションリンクのクリックでメニューを閉じる
+    document.querySelectorAll('nav a').forEach(link => {
+        link.addEventListener('click', closeMenu);
+    });
+
+    // 桜アニメーション
+    setTimeout(function() {
+        const heroContainer = document.getElementById('heroSakuraContainer');
+        const demoContainer = document.getElementById('demoSakuraContainer');
+        
+        if (!heroContainer || !demoContainer) {
             return;
         }
-    } else {
-        setupRecorder(window.mediaStream);
-    }
 
-    if (mediaRecorder && mediaRecorder.state === "inactive") {
-        mediaRecorder.start();
-        
-        // 見た目の変更（btnElementを直接操作）
-        if (btnElement) {
-            btnElement.innerHTML = '<span class="recording-dot"></span> 録音中...';
-            btnElement.style.background = '#ff4b5c';
-        }
-    }
-}
+        let activeSakuraHero = 0;
+        let activeSakuraDemo = 0;
+        const maxSakura = 3;
 
-function stopRecording() {
-    if (mediaRecorder && mediaRecorder.state === "recording") {
-        mediaRecorder.stop();
+        const sakuraColors = [
+            'linear-gradient(135deg, #FFB7C5 0%, #FFC9D4 100%)',
+            'linear-gradient(135deg, #FFC9D4 0%, #FFD4E0 100%)',
+            'linear-gradient(135deg, #F5F5F5 0%, #E8E8E8 100%)',
+            'linear-gradient(135deg, #FFD4E0 0%, #FFE0EA 100%)',
+        ];
 
-        // 【追加】ボタンの見た目を元に戻す
-        // 全ての録音開始ボタンを元の表記に戻す
-        document.querySelectorAll('button[onclick*="startRecording"]').forEach(btn => {
-            btn.innerHTML = '● 録音開始';
-            btn.style.background = ''; // 元のCSSの色に戻す
-        });
-    }
-}
+        const sakuraAnimations = ['sakuraFloat1', 'sakuraFloat2', 'sakuraFloat3', 'sakuraDrift', 'sakuraRhythm'];
 
-            // グローバルに公開
-            window.switchMode = switchMode;
-            window.startRecording = startRecording;
-            window.stopRecording = stopRecording;
+        function createSakuraIn(container, activeCounter) {
+            if (activeCounter >= maxSakura) return activeCounter;
 
-            // ナビゲーションリンクのクリックでメニューを閉じる
-            document.querySelectorAll('nav a').forEach(link => {
-                link.addEventListener('click', closeMenu);
-            });
+            const sakura = document.createElement('div');
+            sakura.className = 'sakura';
 
-            // 桜アニメーション（少し遅延させて確実に起動）
+            const petal = document.createElement('div');
+            petal.className = 'petal-simple';
+            sakura.appendChild(petal);
+
+            const color = sakuraColors[Math.floor(Math.random() * sakuraColors.length)];
+            sakura.style.setProperty('--petal-color', color);
+
+            const scale = 0.5 + Math.random() * 0.7;
+            sakura.style.setProperty('--scale', scale);
+
+            const opacity = 0.15 + Math.random() * 0.2;
+            sakura.style.setProperty('--opacity', opacity);
+
+            sakura.style.left = Math.random() * 100 + '%';
+            sakura.style.top = Math.random() * 80 + 10 + '%';
+
+            const animationType = sakuraAnimations[Math.floor(Math.random() * sakuraAnimations.length)];
+            const duration = animationType === 'sakuraRhythm' ? 2.5 : 2 + Math.random() * 2;
+            sakura.style.animation = animationType + ' ' + duration + 's ease-in-out';
+
+            container.appendChild(sakura);
+
             setTimeout(function() {
-                const heroContainer = document.getElementById('heroSakuraContainer');
-                const demoContainer = document.getElementById('demoSakuraContainer');
-                
-                if (!heroContainer || !demoContainer) {
-                    return;
-                }
+                sakura.remove();
+            }, duration * 1000);
 
-            let activeSakuraHero = 0;
-            let activeSakuraDemo = 0;
-            const maxSakura = 3;
+            return activeCounter + 1;
+        }
 
-            // 色のバリエーション
-            const sakuraColors = [
-                'linear-gradient(135deg, #FFB7C5 0%, #FFC9D4 100%)',
-                'linear-gradient(135deg, #FFC9D4 0%, #FFD4E0 100%)',
-                'linear-gradient(135deg, #F5F5F5 0%, #E8E8E8 100%)',
-                'linear-gradient(135deg, #FFD4E0 0%, #FFE0EA 100%)',
-            ];
+        function scheduleSakuraHero() {
+            activeSakuraHero = createSakuraIn(heroContainer, activeSakuraHero);
+            setTimeout(function() {
+                activeSakuraHero--;
+            }, 3000);
+            
+            const nextDelay = 3000 + Math.random() * 3000;
+            setTimeout(scheduleSakuraHero, nextDelay);
+        }
 
-            // アニメーションの種類
-            const sakuraAnimations = ['sakuraFloat1', 'sakuraFloat2', 'sakuraFloat3', 'sakuraDrift', 'sakuraRhythm'];
+        function scheduleSakuraDemo() {
+            activeSakuraDemo = createSakuraIn(demoContainer, activeSakuraDemo);
+            setTimeout(function() {
+                activeSakuraDemo--;
+            }, 3000);
+            
+            const nextDelay = 3000 + Math.random() * 3000;
+            setTimeout(scheduleSakuraDemo, nextDelay);
+        }
 
-            function createSakuraIn(container, activeCounter) {
-                if (activeCounter >= maxSakura) return activeCounter;
-
-                const sakura = document.createElement('div');
-                sakura.className = 'sakura';
-
-                const petal = document.createElement('div');
-                petal.className = 'petal-simple';
-                sakura.appendChild(petal);
-
-                const color = sakuraColors[Math.floor(Math.random() * sakuraColors.length)];
-                sakura.style.setProperty('--petal-color', color);
-
-                const scale = 0.5 + Math.random() * 0.7;
-                sakura.style.setProperty('--scale', scale);
-
-                const opacity = 0.15 + Math.random() * 0.2;
-                sakura.style.setProperty('--opacity', opacity);
-
-                sakura.style.left = Math.random() * 100 + '%';
-                sakura.style.top = Math.random() * 80 + 10 + '%';
-
-                const animationType = sakuraAnimations[Math.floor(Math.random() * sakuraAnimations.length)];
-                const duration = animationType === 'sakuraRhythm' ? 2.5 : 2 + Math.random() * 2;
-                sakura.style.animation = animationType + ' ' + duration + 's ease-in-out';
-
-                container.appendChild(sakura);
-
-                setTimeout(function() {
-                    sakura.remove();
-                }, duration * 1000);
-
-                return activeCounter + 1;
-            }
-
-            function scheduleSakuraHero() {
-                activeSakuraHero = createSakuraIn(heroContainer, activeSakuraHero);
-                setTimeout(function() {
-                    activeSakuraHero--;
-                }, 3000);
-                
-                const nextDelay = 3000 + Math.random() * 3000;
-                setTimeout(scheduleSakuraHero, nextDelay);
-            }
-
-            function scheduleSakuraDemo() {
-                activeSakuraDemo = createSakuraIn(demoContainer, activeSakuraDemo);
-                setTimeout(function() {
-                    activeSakuraDemo--;
-                }, 3000);
-                
-                const nextDelay = 3000 + Math.random() * 3000;
-                setTimeout(scheduleSakuraDemo, nextDelay);
-            }
-
-                scheduleSakuraHero();
-                scheduleSakuraDemo();
-            }, 100); // 100ms遅延
-        });
-		
-let selectedVoice = 'さくら';
-
-function selectVoice(el) {
-    // active 切り替え
-    document.querySelectorAll('.voice-selector').forEach(v => {
-        v.classList.remove('active');
-    });
-    el.classList.add('active');
-
-    // 選択中の音声名を保存
-    selectedVoice = el.dataset.voice;
-
-    // ドロップダウンを閉じる（CSSアニメーション前提）
-    const dropdown = el.closest('.voice-selector-container');
-    dropdown.classList.remove('open');
-}
-
-// メインアイコンをクリックしたら開閉
-document.querySelector('.voice-selector.active')?.addEventListener('click', function () {
-    this.closest('.voice-selector-container').classList.toggle('open');
+        scheduleSakuraHero();
+        scheduleSakuraDemo();
+    }, 100);
 });
+
+let selectedVoice = '花音咲良';
 </script>
 
 </body>
